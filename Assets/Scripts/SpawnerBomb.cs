@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class SpawnerBomb : MonoBehaviour
 {
     public Transform[] randomPositionBomb;
     public GameObject bomb;

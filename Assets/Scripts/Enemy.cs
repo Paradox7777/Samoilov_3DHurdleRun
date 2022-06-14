@@ -1,30 +1,34 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+namespace Runner
 {
-    NavMeshAgent agent;
-    [SerializeField] List<Transform> targets;
-    private int randomPositionPoints;
-    void Start()
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class Enemy : MonoBehaviour
     {
-        agent = GetComponent<NavMeshAgent>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(agent.transform.position == agent.pathEndPosition)
+        private NavMeshAgent agent;
+        [SerializeField] List <Transform> targets;
+        private int randomPositionPoints;
+        void Awake()
         {
-            TargetUpdate();
+            agent = GetComponent<NavMeshAgent>();
         }
-        agent.SetDestination(targets[randomPositionPoints].position);
-    }
 
-    void TargetUpdate()
-    {
-        randomPositionPoints = Random.Range(0, targets.Count);
+  
+        void Update()
+        {
+            if(agent.remainingDistance == agent.stoppingDistance)
+            {
+                TargetUpdate();
+            }
+            
+            agent.SetDestination(targets[randomPositionPoints].position);
+        }
+
+        void TargetUpdate()
+        {
+            randomPositionPoints = Random.Range(0, targets.Count);
+        }
     }
 }
